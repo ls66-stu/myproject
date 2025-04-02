@@ -1,0 +1,312 @@
+app:
+  description: ''
+  icon: innocent
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: DeepGemini（并行版本）支持文件上传
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai_api_compatible:0.0.6@ea0a9bbcadd8350b6d6ae78c1fda783a7dc44c98abb6b041f91bda60a4ceec16
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions: []
+      allowed_file_types:
+      - document
+      allowed_file_upload_methods:
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 1
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: code
+      id: llm-source-1740557645840-target
+      source: llm
+      sourceHandle: source
+      target: '1740557645840'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: llm
+      id: 1740557645840-source-1738052643931-target
+      source: '1740557645840'
+      sourceHandle: source
+      target: '1738052643931'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: answer
+      id: 1738052643931-source-answer-target
+      source: '1738052643931'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: document-extractor
+      id: 1738052599424-source-1741066256874-target
+      selected: false
+      source: '1738052599424'
+      sourceHandle: source
+      target: '1741066256874'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: document-extractor
+        targetType: llm
+      id: 1741066256874-source-llm-target
+      source: '1741066256874'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 54
+      id: '1738052599424'
+      position:
+        x: -180.11609604093312
+        y: 474.8920539549319
+      positionAbsolute:
+        x: -180.11609604093312
+        y: 474.8920539549319
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '<参考资料>{{#1741066256874.text#}}</参考资料>
+
+            <用户问题>{{#sys.query#}}</用户问题>'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            max_tokens: 16000
+            stop: []
+            temperature: 0.7
+          mode: chat
+          name: deepseek-r1-250120
+          provider: langgenius/openai_api_compatible/openai_api_compatible
+        prompt_template:
+        - id: 60740fa2-90fc-4269-93f4-3d150c3df150
+          role: system
+          text: ''
+        selected: false
+        title: deepseek-r1
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: llm
+      position:
+        x: 378.6439041949243
+        y: 474.8920539549319
+      positionAbsolute:
+        x: 378.6439041949243
+        y: 474.8920539549319
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#llm.text#}}
+
+
+          ---
+
+
+          #   <div style="text-align: center;"><span style="color: #1E90FF;">🕶DeepGemini</span></div>
+
+
+          {{#1738052643931.text#}}'
+        desc: ''
+        selected: false
+        title: 回复
+        type: answer
+        variables: []
+      height: 155
+      id: answer
+      position:
+        x: 1175.281343699786
+        y: 474.8920539549319
+      positionAbsolute:
+        x: 1175.281343699786
+        y: 474.8920539549319
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '<参考资料>{{#1741066256874.text#}}</参考资料>
+
+            <User Query>{{#sys.query#}}</User Query>
+
+            <Think>{{#1740557645840.result#}}</Think>'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 1
+          mode: chat
+          name: gemini-2.0-pro-exp-02-05
+          provider: langgenius/openai_api_compatible/openai_api_compatible
+        prompt_template:
+        - id: 564efaef-34a5-4c48-9ca3-a9f4f0bdeba9
+          role: system
+          text: 参考<Think>标签内的思考过程（取其精华去其糟粕），回答<User Query>
+        selected: false
+        title: gemini
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector: []
+          enabled: false
+      height: 90
+      id: '1738052643931'
+      position:
+        x: 901.3227866877917
+        y: 474.8920539549319
+      positionAbsolute:
+        x: 901.3227866877917
+        y: 474.8920539549319
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "def main(arg1: str) -> str:\n    content = arg1.split('</summary>',\
+          \ 1)[1].split('</details>', 1)[0]\n    cleaned_content = content.strip().replace('\\\
+          \\n', '\\n')\n    return {\"result\": cleaned_content}"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 提取思维链
+        type: code
+        variables:
+        - value_selector:
+          - llm
+          - text
+          variable: arg1
+      height: 54
+      id: '1740557645840'
+      position:
+        x: 643.4644054152571
+        y: 474.8920539549319
+      positionAbsolute:
+        x: 643.4644054152571
+        y: 474.8920539549319
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_array_file: true
+        selected: false
+        title: 文档提取器
+        type: document-extractor
+        variable_selector:
+        - sys
+        - files
+      height: 92
+      id: '1741066256874'
+      position:
+        x: 105.42761111553591
+        y: 474.8920539549319
+      positionAbsolute:
+        x: 105.42761111553591
+        y: 474.8920539549319
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -247.20589736499676
+      y: 24.698577081380108
+      zoom: 0.6576876338417796
